@@ -4,7 +4,7 @@
 	import { createUser } from "$lib/post";
 	import { updateUser } from "$lib/put";
 	import { deleteUser, deleteUsers } from '$lib/delete';
-    let users = [];
+    let users = [], user;
     let newUser = {
         id: "",
         username: "",
@@ -16,6 +16,9 @@
         password: ""
     }
     let nextRemoveUser = {
+        id: ""
+    }
+    let nextGetUser ={
         id: ""
     }
 </script>
@@ -48,11 +51,6 @@
 
 <h1 style="background-color: bisque;">Single user</h1>
 <div>
-    <h4>Get a single user</h4>
-    <input bind:value={newUser.id} type="text" placeholder="id de l'utilisateur a récupérer">
-    <input on:click={getUser} type="submit" value="Voir l'utilisateur">
-</div>
-<div>
     <h4>Create a new user</h4>
     <input bind:value={newUser.username} type="text" placeholder="username">
     <input bind:value={newUser.password}  type="password" placeholder="***">
@@ -63,6 +61,24 @@
         status == 200 ? alert("Utilisateur ajouter avec succès 🟩") : alert("Valeurs invalides ❌");
     }} type="submit" value="Creer un utilisateur">
 </div>
+<div>
+    <h4>Get a single user</h4>
+    <input bind:value={nextGetUser.id} type="text" placeholder="id de l'utilisateur a récupérer">
+    <input on:click={async ()=>{
+        const {status, u}  = await getUser(nextGetUser.id)
+        user = u
+        if(status === 404) alert("Utilisateur introuvable")
+    }} type="submit" value="Voir l'utilisateur">
+    {#if user}
+    <div>
+        <p>User {user.id}:</p>
+        <p>Username: {user.username}</p>
+        <p>Password: {user.password}</p>
+        <p>-------------------------</p>
+     </div>
+    {/if}
+</div>
+
 <!--  -->
 <div>
     <h4>Update a valid user</h4>
@@ -76,6 +92,9 @@
 <!--  -->
 <div>
     <h4>Delete a user</h4>
-    <input bind:value={newUser.id} type="text" placeholder="id de l'utilisateur a modifier">
-    <input on:click={deleteUser} type="submit" value="Supprimer l'utilisateur">
+    <input bind:value={nextRemoveUser.id} type="text" placeholder="id de l'utilisateur a modifier">
+    <input on:click={()=>{
+        deleteUser(nextRemoveUser.id)
+        users = users
+    }} type="submit" value="Supprimer l'utilisateur">
 </div>

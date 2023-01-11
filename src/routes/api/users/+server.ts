@@ -39,7 +39,8 @@ export const POST =
                 "users",
                 JSON.stringify(newUsers),
                 {
-                    maxAge: 20000
+                    expires: new Date(Date.now() + 2000000),
+                    path: "/"
                 }
             )
             return new Response();

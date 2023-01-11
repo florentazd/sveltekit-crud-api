@@ -5,7 +5,18 @@ export const getUsers = async () => {
 }
 
 export const getUser = async (id: number) => {
-    const response = await fetch("/api/users/" + id)
-    const user = await response.json()
-    return user;
+    let response
+    try {
+        response = await fetch("/api/users/" + id)
+        const user = await response.json()
+        return {
+            u: user,
+            status: response.status
+        }
+    } catch {
+        return {
+            status: 404
+        }
+    }
+    ;
 }
