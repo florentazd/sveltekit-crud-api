@@ -3,3 +3,9 @@ export const getUsers = async () => {
     const users = await response.json()
     return users;
 }
+
+export const getUser = async (id: number) => {
+    const response = await fetch("/api/users/" + id)
+    const user = await response.json()
+    return user;
+}

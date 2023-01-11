@@ -1,6 +1,6 @@
 <script>
     // @ts-nocheck
-	import { getUsers } from '$lib/get';
+	import { getUsers, getUser } from '$lib/get';
 	import { createUser } from "$lib/post";
 	import { updateUser } from "$lib/put";
 	import { deleteUser, deleteUsers } from '$lib/delete';
@@ -47,6 +47,11 @@
 
 
 <h1 style="background-color: bisque;">Single user</h1>
+<div>
+    <h4>Get a single user</h4>
+    <input bind:value={newUser.id} type="text" placeholder="id de l'utilisateur a récupérer">
+    <input on:click={getUser} type="submit" value="Voir l'utilisateur">
+</div>
 <div>
     <h4>Create a new user</h4>
     <input bind:value={newUser.username} type="text" placeholder="username">
