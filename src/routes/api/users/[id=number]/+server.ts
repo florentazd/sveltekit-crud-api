@@ -1,11 +1,11 @@
-import { getSingleUser } from "$lib/getUser";
+// import { getSingleUser } from "$lib/getUser";
 import type { RequestHandler } from "../$types";
 import { json } from "@sveltejs/kit";
 
 // Get a single user from the db
 export const GET = (
     ({ params }) => {
-        return json(getSingleUser(params.id))
+        // return json(getSingleUser(params.id))
     }
 ) satisfies RequestHandler
 
